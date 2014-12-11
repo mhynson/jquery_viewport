@@ -14,12 +14,24 @@
     
     $.belowthefold = function(element, settings) {
         var fold = $(window).height() + $(window).scrollTop();
+        if( settings.hasOwnProperty('increaseFold') ){
+            fold += settings.increaseFold;
+        }
+        if( settings.hasOwnProperty('reduceFold') ){
+            fold -= settings.reduceFold;
+        }
         return fold <= $(element).offset().top - settings.threshold;
     };
 
     $.abovethetop = function(element, settings) {
         var top = $(window).scrollTop();
-        return top >= $(element).offset().top + $(element).height() - settings.threshold;
+        if( settings.hasOwnProperty('increaseTop') ){
+            top += settings.increaseTop;
+        }
+        if( settings.hasOwnProperty('reduceTop') ){
+            top -= settings.reduceTop;
+        }
+        return top >= $(element).offset().top + $(element).height();
     };
     
     $.rightofscreen = function(element, settings) {
@@ -53,6 +65,4 @@
             return $.inviewport(a, {threshold : 0});
         }
     });
-
-    
 })(jQuery);
